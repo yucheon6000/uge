@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Chrome">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>UGE</title>
+  
+  <!-- Common -->
+  <script src="UGE/Common/Vector2.js"></script>
+  <script src="UGE/Common/Utills.js"></script>
+  
+  <!-- Component -->
+  <script src="UGE/Component/Component.js"></script>
+  <script src="UGE/Component/Transform.js"></script>
+  <script src="UGE/Component/Renderer.js"></script>
+  
+  <!-- GameObject -->
+  <script src="UGE/GameObject/GameObject.js"></script>
+  
+  <!-- Manager -->
+  <script src="UGE/Manager/GameObjectManager.js"></script>
+  <script src="UGE/Manager/InputManager.js"></script>
+  <script src="UGE/Manager/GameManager.js"></script>
+
+
+
+  
+</head>
+
+<body>
+  <canvas id="game-view"></canvas>
+  
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="style.css">
+  
+  
+  <!-- GameScripts -->
+  <script>
+    class TestA extends GameObject {
+      constructor() {
+        super(['testA', 'test']);
+      }
+      
+      update() {
+        console.log(Game.deltaTime);
+      }
+    }
+  
+    Utills.newGameObject(TestA);
+  
+  
+    GameManager.init('game-view');
+    GameManager.start();
+    
+  </script>
+  
+</body>
+</html>
