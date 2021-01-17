@@ -10,6 +10,7 @@
   <!-- Common -->
   <script src="UGE/Common/Vector2.js"></script>
   <script src="UGE/Common/Utills.js"></script>
+  <script src="UGE/Common/UMath.js"></script>
   
   <!-- Component -->
   <script src="UGE/Component/Component.js"></script>
@@ -21,6 +22,7 @@
   
   <!-- Manager -->
   <script src="UGE/Manager/GameObjectManager.js"></script>
+  <script src="UGE/Manager/RenderManager.js"></script>
   <script src="UGE/Manager/InputManager.js"></script>
   <script src="UGE/Manager/GameManager.js"></script>
 
@@ -30,28 +32,44 @@
 </head>
 
 <body>
-  <canvas id="game-view"></canvas>
+  <canvas width="500px" height="300px" id="game-canvas"></canvas>
+  <canvas width="500px" height="300px" id="view-canvas"></canvas>
   
   <!-- Custom Styles -->
-  <link rel="stylesheet" href="style.css">
+  <style>
+    canvas {
+      border: 2px solid black;
+    }
+    #-canvas {
+      display: none;
+    }
+  </style>
   
   
   <!-- GameScripts -->
   <script>
     class TestA extends GameObject {
       constructor() {
-        super(['testA', 'test']);
+        super('testA', 'test');
       }
       
       update() {
-        console.log(Game.deltaTime);
+        console.log(UTime.deltaTime);
       }
     }
   
-    Utills.newGameObject(TestA);
+    
+    let a = Utills.newGameObject(TestA);
+    let renderer = new Renderer()
+    a.addComponent(renderer)
+    a.transform.position.x = 250;
+    a.transform.position.y = -150;
+    let initSample = {
+      gameCanvasId: 'game-canvas',
+      viewCanvasId: 'view-canvas'
+    };
   
-  
-    GameManager.init('game-view');
+    GameManager.init(initSample);
     GameManager.start();
     
   </script>

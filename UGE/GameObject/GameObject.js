@@ -1,8 +1,10 @@
 class GameObject {
   constructor(type='none', tag='none') {
     let tr = new Transform();
+    tr.setGameObject(this);
+    
     this.components = [tr];
-    this.transform = tr;
+    this._transform = tr;
     this._type = type;
     this._tag = tag;
   }
@@ -16,20 +18,30 @@ class GameObject {
   }
   
   set transform(transform) {
-    return new Error('GAMEOBJECT ERROR: Transform을 직접 바꿀 수는 없습니다.');
+    return new Error('[GameObject] Transform을 직접 바꿀 수는 없습니다.');
+  }
+  
+  get transform() {
+    return this._transform;
   }
   
   // Componen method
   addComponent(component) {
+    if(component == undefined) return
     this.components.push(component);
+    component.setGameObject(this);
     return component;
   }
   
   removeComponent(component) {
     for(let i = 0; i < this.components.length; i++) {
-      if(component == this.components[i]) {
+      if(component == this.components[i]
+        && this.transform != this.components[i]) {
+          
         this.components.slice(i, 1);
+        component.setGameObject(undefined);
         return true;
+        
       }
     }
     

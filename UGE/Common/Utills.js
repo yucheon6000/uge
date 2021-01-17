@@ -7,6 +7,10 @@ class Utills {
     // 게임 메니저에 추가
     GameManager.GameObjectManager.addGameObject(obj);
     
+    // Call awake and start method
+    obj.awake();
+    obj.start();
+    
     return obj;
   }
   
