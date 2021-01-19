@@ -14,47 +14,65 @@ class Vector2 {
   // 사칙연산
   // 새 객체 생성 후, 반환
   add(vec2) {
-    let v = new Vector2(this.x, this.y);
-    v.x += vec2.x;
-    v.y += vec2.y;
-    return v;
+    this.x += vec2.x;
+    this.y += vec2.y;
+    return this;
   }
   
   sub(vec2) {
-    let v = new Vector2(this.x, this.y);
-    v.x -= vec2.x;
-    v.y -= vec2.y;
-    return v;
+    this.x -= vec2.x;
+    this.y -= vec2.y;
+    return this;
   }
   
   mul(num) {
-    return new Vector2(this.x * num, this.y * num);
+    this.x *= num;
+    this.y *= num;
+    return this;
   }
   
   div(num) {
-    return new Vector2(this.x / num, this.y / num);
+    this.x /= num;
+    this.y /= num;
+    return this;
   }
+	
+	// Get getter
+	get sqrMag() {
+		return this.x * this.x + this.y * this.y;
+	}
+	
+	get mag() {
+		return Math.sqrt(this.sqrMag);
+	}
+	
+	get normalized() {
+		let len = this.mag;
+		if(len == 0) return Vector2.zero;
+		
+		let x = this.x / len;
+		let y = this.y / len;
+		return new Vector2(x, y);
+	}
   
-  /*  사칙연산 */
-  add(vec2) {
-    let v = new Vector2(this.x, this.y);
-    v.x += vec2.x;
-    v.y += vec2.y;
-    return v;
-  }
-  
-  sub(vec2) {
-    let v = new Vector2(this.x, this.y);
-    v.x -= vec2.x;
-    v.y -= vec2.y;
-    return v;
-  }
-  
-  mul(num) {
-    return new Vector2(this.x * num, this.y * num);
-  }
-  
-  div(num) {
-    return new Vector2(this.x / num, this.y / num);
-  }
+	// Static
+	static get zero() {
+		return new Vector2(0, 0);
+	}
+	
+	static get up() {
+		return new Vector2(0, 1);
+	}
+	
+	static get down() {
+		return new Vector2(0, -1);
+	}
+	
+	static get right() {
+		return new Vector2(1, 0);
+	}
+	
+	static get left() {
+		return new Vector2(-1, 0);
+	}
 }

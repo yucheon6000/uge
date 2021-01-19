@@ -8,6 +8,7 @@
   <title>UGE</title>
   
   <!-- Common -->
+	<script src="UGE/Common/Type.js"></script>
   <script src="UGE/Common/Vector2.js"></script>
   <script src="UGE/Common/Utills.js"></script>
   <script src="UGE/Common/UMath.js"></script>
@@ -16,6 +17,9 @@
   <script src="UGE/Component/Component.js"></script>
   <script src="UGE/Component/Transform.js"></script>
   <script src="UGE/Component/Renderer.js"></script>
+	<script src="UGE/Component/ManualRenderer.js"></script>
+	<script src="UGE/Component/Camera.js"></script>
+	
   
   <!-- GameObject -->
   <script src="UGE/GameObject/GameObject.js"></script>
@@ -25,13 +29,36 @@
   <script src="UGE/Manager/RenderManager.js"></script>
   <script src="UGE/Manager/InputManager.js"></script>
   <script src="UGE/Manager/GameManager.js"></script>
-
-
-
-  
 </head>
 
 <body>
+	<!-- Buttons	 -->
+	<style>
+		#buttons {
+			display: flex;
+			flex-direction: column;
+			position: absolute;
+			padding: 15px;
+			top: 0;
+			right: 0;
+		}
+		
+		.button {
+			border-radius: 4px;
+			padding: 4px;
+			text-align: center;
+			margin-bottom: 4px;
+			color: #309352;
+			background: #b4ffce;
+			cursor: pointer;
+		}
+	</style>
+	
+	<div id="buttons">
+		<div id="start" class="button" onclick="GameManager.start()">시작</div>
+		<div id="pause" class="button" onclick="GameManager.pause()">일시정지</div>
+	</div>
+	<!-- Canvas	 -->
   <canvas width="500px" height="300px" id="game-canvas"></canvas>
   <canvas width="500px" height="300px" id="view-canvas"></canvas>
   
@@ -47,32 +74,7 @@
   
   
   <!-- GameScripts -->
-  <script>
-    class TestA extends GameObject {
-      constructor() {
-        super('testA', 'test');
-      }
-      
-      update() {
-        console.log(UTime.deltaTime);
-      }
-    }
-  
-    
-    let a = Utills.newGameObject(TestA);
-    let renderer = new Renderer()
-    a.addComponent(renderer)
-    a.transform.position.x = 250;
-    a.transform.position.y = -150;
-    let initSample = {
-      gameCanvasId: 'game-canvas',
-      viewCanvasId: 'view-canvas'
-    };
-  
-    GameManager.init(initSample);
-    GameManager.start();
-    
-  </script>
+	<script src="Game/main.js"></script>
   
 </body>
 </html>

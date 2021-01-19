@@ -8,12 +8,6 @@ class Transform extends Component {
   }
 
   get type() {
-    return 'Transform';
+    return ComponentType.Transform;
   }
-  
-  get typeIndex() {
-    return 1000;
-  }
-
-  // Method
 }

@@ -1,24 +1,26 @@
 class Component {
   constructor() {
     this.enable = true;
-
     this.gameObject = undefined;
   }
-  
+	
+	/* Override Method */
   get type() {
-    return 'Component';
+    return ComponentType.Component;
   }
   
-  get typeIndex() {
-    return 0;
-  }
-  
-  setGameObject(obj) {
-    this.gameObject = obj;
-  }
-  
+	// 게임 오브젝트에 추가되었을 때 실행
+	registered() {
+
+	}
+	
   // 매 프레임마다 실행되는 로직
   update() {
     
+  }
+	
+	/* Default Method */
+	setGameObject(obj) {
+    this.gameObject = obj;
   }
 }

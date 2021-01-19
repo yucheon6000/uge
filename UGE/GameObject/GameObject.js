@@ -3,6 +3,7 @@ class GameObject {
     let tr = new Transform();
     tr.setGameObject(this);
     
+		this.enable = true;
     this.components = [tr];
     this._transform = tr;
     this._type = type;
@@ -30,6 +31,7 @@ class GameObject {
     if(component == undefined) return
     this.components.push(component);
     component.setGameObject(this);
+		component.registered();
     return component;
   }
   
