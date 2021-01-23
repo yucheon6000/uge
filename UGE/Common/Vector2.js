@@ -37,6 +37,11 @@ class Vector2 {
     return this;
   }
 	
+	// Method
+	clone() {
+	  return new Vector2(this.x, this.y);
+	}
+	
 	// Get getter
 	get sqrMag() {
 		return this.x * this.x + this.y * this.y;

@@ -1,14 +1,15 @@
-GameManager = {};
+let GameManager = {};
 GameManager.GameObjectManager = new GameObjectManager();
 GameManager.RenderManager = new RenderManager();
 GameManager.InputManager = new InputManager();
+GameManager.CollisionManager = new CollisionManager();
 
 GameManager._ready = false;
 
-
 GameManager.init = function(initValues) {
   // Init renderManager 
-  let renderReady = GameManager.RenderManager.init(initValues.gameCanvasId, initValues.viewCanvasId);
+  let renderReady = GameManager.RenderManager.init(initValues.gameCanvasId, initValues.viewCanvasId, initValues.cameraGameObject);
+  let inputReady = GameManager.InputManager.init(initValues.gameCanvasId);
 
   // Finish init 
   console.log('[GameManager] 게임을 초기화했습니다.');
@@ -18,12 +19,17 @@ GameManager.init = function(initValues) {
 
 GameManager.start = function() {
   // Check ready
-  if(!GameManager._ready)
+  if(!GameManager._ready) {
     throw new Error('[GameManager] 게임을 시작하기 위한 준비가 되지 않았습니다.');
-  
+    return false;
+  }
+  if(GameManager.state == GameState.Start) {
+    console.log('[GameManager] 게임이 진행 중입니다.');
+    return false;
+  }
   console.log('[GameManager] 게임을 시작했습니다.');
 	
-	GameManager._pause = false;
+	GameManager.state = GameState.Start;
   UTime._lastTime = new Date().getTime();
   
   // Call awake method
@@ -43,14 +49,15 @@ GameManager.start = function() {
   return;
 }
 
-GameManager._pause = false;
+let GameState = {Stop: 0, Start: 1, Pause: 2};
+GameManager.state = GameState.Stop;
 GameManager.pause = function() {
 	console.log('[GameManager] 게임을 일시정지했습니다.');
-	GameManager._pause = true;
+	GameManager.state = GameState.Pause;
 }
 
 GameManager._frame = function() {
-	if(GameManager._pause)
+	if(GameManager.state == GameState.Pause)
 		return;
 	
   // New frame
@@ -64,8 +71,12 @@ GameManager._frame = function() {
   
 	// Update key state
 	GameManager.InputManager.updateKeyState();
+	GameManager.InputManager.updateMouseState();
+	GameManager.InputManager.updateTouchState();
 	
+	// Find components
 	let renderComponents = [];
+	let colliderComponents = [];
   
   // Call update method
   for(let i = 0; i < GameManager.GameObjectManager.gameObjectList.length; i++) {
@@ -76,17 +87,22 @@ GameManager._frame = function() {
 			if(com.enable) com.update();
       
       // Push render Component
-      if(UMath.checkRange(com.type, 2000, 2999))
+      if(UMath.checkRange(com.type, ComponentType.Renderer, ComponentType.RendererMax)){
         renderComponents.push(com);
+      }
+      else if(UMath.checkRange(com.type, ComponentType.Collider, ComponentType.ColliderMax)) {
+        colliderComponents.push(com);
+      }
     }
   }
   
   // Rendering
-  GameManager.RenderManager.render(renderComponents);
+  GameManager.RenderManager.updateRender(renderComponents);
+  GameManager.RenderManager.renderCollider(colliderComponents)
+  GameManager.CollisionManager.updateCollision(colliderComponents);
 }
 
 // Time
 let UTime = {};
 UTime._lastTime = 0;
 UTime.deltaTime = 0;
-

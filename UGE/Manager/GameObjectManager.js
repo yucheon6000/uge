@@ -5,13 +5,18 @@ class GameObjectManager {
   }
   
   // GameObject 추가/삭제
-  addGameObject(obj) {
+  addGameObject(/*GameObject*/obj) {
     this.gameObjectList.push(obj);
+    // 고쳐야 할 듯
+    if(GameManager.state == GameState.Start || GameManager.state == GameState.Pause) {
+      obj.awake();
+      obj.start();
+    }
     console.log(`[GameObjectManager] GameObject 추가됨 (${obj.type})`);
     return;
   }
   
-  removeGameObject(obj) {
+  removeGameObject(/*GameObject*/obj) {
     for(let i = 0; i < this.gameObjectList.length; i++) 
       if(this.gameObjectList[i] == obj) {
         this.gameObjectList.slice(i, 1);

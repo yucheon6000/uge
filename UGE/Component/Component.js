@@ -23,4 +23,6 @@ class Component {
 	setGameObject(obj) {
     this.gameObject = obj;
   }
+  
+  get transform() {return this.gameObject.transform;}
 }

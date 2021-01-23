@@ -17,7 +17,11 @@
   <script src="UGE/Component/Component.js"></script>
   <script src="UGE/Component/Transform.js"></script>
   <script src="UGE/Component/Renderer.js"></script>
+	<script src="UGE/Component/SpriteRenderer.js"></script>
+	<script src="UGE/Component/AtlasRenderer.js"></script>
 	<script src="UGE/Component/ManualRenderer.js"></script>
+	<script src="UGE/Component/Collider.js"></script>
+	<script src="UGE/Component/BoxCollider.js"></script>
 	<script src="UGE/Component/Camera.js"></script>
 	
   
@@ -28,6 +32,7 @@
   <script src="UGE/Manager/GameObjectManager.js"></script>
   <script src="UGE/Manager/RenderManager.js"></script>
   <script src="UGE/Manager/InputManager.js"></script>
+  <script src="UGE/Manager/CollisionManager.js"></script>
   <script src="UGE/Manager/GameManager.js"></script>
 </head>
 
@@ -53,11 +58,12 @@
 			cursor: pointer;
 		}
 	</style>
-	
 	<div id="buttons">
 		<div id="start" class="button" onclick="GameManager.start()">시작</div>
 		<div id="pause" class="button" onclick="GameManager.pause()">일시정지</div>
+		<div id="fps" class="button" >0</div>
 	</div>
+	
 	<!-- Canvas	 -->
   <canvas width="500px" height="300px" id="game-canvas"></canvas>
   <canvas width="500px" height="300px" id="view-canvas"></canvas>

@@ -75,4 +75,17 @@ class GameObject {
   start() {}
   
   update() {}
+  
+  // Collision method
+  onTriggerEnterColiision(other) {
+    
+  }
+  
+  onTriggerStayrColiision(other) {
+  
+  }
+  
+  onTriggerExitColiision(other) {
+  
+  }
 }

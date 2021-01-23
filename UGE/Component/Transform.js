@@ -3,7 +3,7 @@ class Transform extends Component {
   constructor() {
     super();
     this.position = new Vector2();
-    this.rotation = new Vector2();
+    this.rotation = 0;
     this.scale = new Vector2();
   }
 

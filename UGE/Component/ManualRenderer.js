@@ -6,7 +6,7 @@ class ManualRenderer extends Component {
   }
   
   get type() {
-    return ComponentType.Renderer;
+    return ComponentType.ManualRenderer;
   }
 
   update() {
