@@ -39,9 +39,12 @@
 <body>
 	<!-- Buttons	 -->
 	<style>
+	  body {
+	    width: 100%;
+	    height: 100%;
+	  }
+	
 		#buttons {
-		  width: 100%;
-		  height: 100%;
 			display: flex;
 			flex-direction: column;
 			position: absolute;
@@ -75,7 +78,7 @@
 	<!-- Canvas	 -->
   <canvas style="position:absolute; top:0; left:0; z-index: 9;"  id="game-canvas"></canvas>
   <script>
-  window.onload = () = {
+  window.onload = () => {
     let c = document.getElementById('game-canvas');
     c.width = window.innerWidth;
     c.height = window.innerHeight;
@@ -100,7 +103,7 @@
   <!-- GameScripts -->
 	<script src="Game/main.js"></script>
 	
-	<img id="NormalBoomAtlas" class="" src="Game/NormalBoomAtlas.png">
+	<img id="NormalBoomAtlas" style="z-index: -10; opacity: 0;" src="Game/NormalBoomAtlas.png">
   
 </body>
 </html>
