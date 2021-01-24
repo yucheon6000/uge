@@ -40,6 +40,8 @@
 	<!-- Buttons	 -->
 	<style>
 		#buttons {
+		  width: 100%;
+		  height: 100%;
 			display: flex;
 			flex-direction: column;
 			position: absolute;
@@ -73,11 +75,12 @@
 	<!-- Canvas	 -->
   <canvas style="position:absolute; top:0; left:0; z-index: 9;"  id="game-canvas"></canvas>
   <script>
+  window.onload = () = {
     let c = document.getElementById('game-canvas');
     c.width = window.innerWidth;
     c.height = window.innerHeight;
     let ctx = c.getContext('2d');
-    
+  };
     
   </script>
   
@@ -97,7 +100,7 @@
   <!-- GameScripts -->
 	<script src="Game/main.js"></script>
 	
-	<img id="NormalBoomAtlas" class="hidden" src="Game/NormalBoomAtlas.png">
+	<img id="NormalBoomAtlas" class="" src="Game/NormalBoomAtlas.png">
   
 </body>
 </html>
