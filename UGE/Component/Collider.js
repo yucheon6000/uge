@@ -21,4 +21,8 @@ class Collider extends Component {
   drawCollider(gCtx, gCanvas, self) {
     
   }
+  
+  updatePosition() {
+    
+  }
 }

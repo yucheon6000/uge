@@ -21,7 +21,7 @@ class AtlasRenderer extends Component {
     this.colIndex = colIndex;
     this.rowIndex = rowIndex;
     this.startPosition;
-    this.setStartPosition();
+    this._setStartPosition();
   }
 
   get type() {
@@ -32,13 +32,28 @@ class AtlasRenderer extends Component {
 
   }
 
-  setStartPosition() {
+  _setStartPosition() {
     this.startPosition = this.atlas.getStartPositionByIndex(this.colIndex, this.rowIndex);
+  }
+
+  get isFirstIndex() {
+    if(this.colIndex == 0 && this.rowIndex == 0)
+      return true;
+    else 
+      return false;
+  }
+
+  get isLastIndex() {
+    if (this.colIndex == this.atlas.colLength - 1 && this.rowIndex == this.atlas.rowLength - 1)
+      return true;
+    else
+      return false;
   }
 
   setAtlasIndex(colIndex, rowIndex) {
     this.colIndex = colIndex;
     this.rowIndex = rowIndex;
+    this._setStartPosition();
   }
 
   setNextIndex(){
@@ -51,7 +66,7 @@ class AtlasRenderer extends Component {
       }
     }
     
-    this.setStartPosition();
+    this._setStartPosition();
   }
   
   setPrevIndex(){
@@ -64,7 +79,7 @@ class AtlasRenderer extends Component {
       }
     }
     
-    this.setStartPosition();
+    this._setStartPosition();
   }
 
   render(gCtx, gCvs, selfGameObject, selfComponent) {

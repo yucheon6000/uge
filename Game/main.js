@@ -1,8 +1,8 @@
-let ataa = new Atlas('Game/NormalBoomAtlas.png',3,2);
+let ataa = new Atlas('Game/Resource/NormalBoomAtlas.png',3,2);
 
 class Player extends GameObject {
 	constructor() {
-		super('Player', 'player');
+		super('NormalBoom', 'normalBoom');
 		this.renderer = new AtlasRenderer(ataa);
 		this.color = '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6);
 		
@@ -59,7 +59,9 @@ class Player extends GameObject {
 		this.transform.scale.y = targetScale;
 		
 		if (this.virtualPosition.y <= 0 && this.velocity.y < 0) {
-		  if(this.jumpCount == 6) {
+		  if(this.jumpCount == 3) {
+		    let explosion = Utills.newGameObject(Explosion);
+		    explosion.setPosition(this.transform.position.clone());
 		    Utills.distroyGameObject(this);
 		    return;
 		  }
@@ -80,32 +82,6 @@ class Player extends GameObject {
 		  this.renderer.setNextIndex();
 		  this.timer = 0;
 		}
-	}
-	
-	updateJump() {
-	  if(!this.jumping) {
-	    this.jumping = true;
-	    this.y = this.originY;
-	  }
-	  
-	  if(this.jumping)
-	    this.jump();
-	}
-	
-	jump() {
-	  this.jumpTime += UTime.deltaTime;
-	  
-	  
-	  let height = (this.jumpTime * this.jumpTime * (-this.gravity) / 2) + (this.jumpTime * this.jumpPower);
-	  // console.log(height);
-	  this.y += height;
-	  
-	  
-	  if(this.y <= this.originY) {
-	    this.jumping = false;
-	    this.jumpTime = 0;
-	    this.y = this.originY;
-	  }
 	}
 }
 
