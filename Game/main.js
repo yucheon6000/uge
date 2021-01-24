@@ -181,8 +181,7 @@ class PlayerManager extends GameObject {
 let playerManager = Utills.newGameObject(PlayerManager);
 
 let initSample = {
-  gameCanvasId: 'game-canvas',
-  viewCanvasId: 'view-canvas'
+  gameCanvasId: 'game-canvas'
 };
 
 GameManager.init(initSample); 

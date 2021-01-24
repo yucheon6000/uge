@@ -8,7 +8,7 @@ GameManager._ready = false;
 
 GameManager.init = function(initValues) {
   // Init renderManager 
-  let renderReady = GameManager.RenderManager.init(initValues.gameCanvasId, initValues.viewCanvasId, initValues.cameraGameObject);
+  let renderReady = GameManager.RenderManager.init(initValues.gameCanvasId, initValues.cameraGameObject);
   let inputReady = GameManager.InputManager.init(initValues.gameCanvasId);
 
   // Finish init 

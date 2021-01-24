@@ -2,12 +2,10 @@ class RenderManager {
   constructor() {
     this.gameCanvas = null;
     this.gameCtx = null;
-    this.viewCanvas = null;
-    this.viewCtx = null;
     this.mainCamera = null;  // Component(Camera);
    }
 
-  init(/*string*/gameCanvasId, /*string*/viewCanvasId, /*GameObject*/mainCamera) {
+  init(/*string*/gameCanvasId, /*GameObject*/mainCamera) {
     let error = function(val) {
       throw new Error(`[RenderManager] 초기화 실패! (${val})`);
       return false;
@@ -20,14 +18,6 @@ class RenderManager {
     this.gameCtx = this.gameCanvas.getContext('2d');
     if (this.gameCtx == undefined)
       return error(gameCanvasId);
-      
-    this.viewCanvas = document.getElementById(viewCanvasId);
-    if (this.viewCanvas == undefined)
-      return error(viewCanvasId);
-    
-    this.viewCtx = this.viewCanvas.getContext('2d');
-    if (this.viewCtx == undefined)
-      return error(viewCanvasId);
 		
 		this.initCamera(mainCamera);
 		
@@ -63,7 +53,6 @@ class RenderManager {
   updateRender(/*Renderer[]*/components) {
     // Clear canvas
     this.gameCtx.clearRect(0, 0, this.gameCanvas.width, this.gameCanvas.height);
-    this.viewCtx.clearRect(0, 0, this.viewCanvas.width, this.viewCanvas.height);
     
     // Sort components
     components.sort((a,b) => {
