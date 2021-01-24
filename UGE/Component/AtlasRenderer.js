@@ -55,19 +55,29 @@ class AtlasRenderer extends Component {
   }
   
   setPrevIndex(){
+    this.colIndex--;
+    if (this.colIndex < 0) {
+      this.colIndex = this.atlas.colLength - 1;
+      this.rowIndex--;
+      if (this.rowIndex < 0) {
+        this.rowIndex = this.atlas.rowLength - 1;
+      }
+    }
     
+    this.setStartPosition();
   }
 
-  render(gCtx, vCtx, gCvs, vCvs, self = this.gameObject) {
+  render(gCtx, gCvs, selfGameObject, selfComponent) {
     gCtx.save();
 
-    gCtx.translate(gCvs.width / 2 + this.transform.position.x, gCvs.height / 2 - this.transform.position.y);
-    gCtx.rotate(self.transform.rotation * Math.PI / 180);
-    gCtx.translate(-(this.atlas.halfSize.x), -(this.atlas.halfSize.y));
+    gCtx.translate(gCvs.width * 0.5 + this.transform.position.x, gCvs.height * 0.5 - this.transform.position.y);
+    gCtx.rotate(selfGameObject.transform.rotation * Math.PI / 180);
+    gCtx.translate(-(this.atlas.halfSize.x * this.transform.scale.x), -(this.atlas.halfSize.y * this.transform.scale.y));
+    
     gCtx.drawImage(
       this.atlas.img, 
       this.startPosition.x, this.startPosition.y, this.atlas.size.x, this.atlas.size.y, 
-      0, 0, this.atlas.size.x, this.atlas.size.y);
+      0, 0, this.atlas.size.x  * this.transform.scale.x, this.atlas.size.y  * this.transform.scale.y);
 
     gCtx.restore();
   }

@@ -75,7 +75,8 @@ class RenderManager {
     this.gameCtx.translate(-this.mainCamera.gameObject.transform.position.x, this.mainCamera.gameObject.transform.position.y);
     
     for(let i = 0; i < components.length; i++) {
-      components[i].render(this.gameCtx, this.viewCtx, this.gameCanvas, this.viewCanvas, components[i]);
+      let com = components[i];
+      com.render(this.gameCtx, this.gameCanvas, com.gameObject, com);
     }
     
     // Show view

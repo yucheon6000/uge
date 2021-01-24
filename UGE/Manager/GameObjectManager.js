@@ -12,15 +12,15 @@ class GameObjectManager {
       obj.awake();
       obj.start();
     }
-    console.log(`[GameObjectManager] GameObject 추가됨 (${obj.type})`);
+    //console.log(`[GameObjectManager] GameObject 추가됨 (${obj.type})`);
     return;
   }
   
   removeGameObject(/*GameObject*/obj) {
     for(let i = 0; i < this.gameObjectList.length; i++) 
       if(this.gameObjectList[i] == obj) {
-        this.gameObjectList.slice(i, 1);
-        console.log(`[GameObjectManager] GameObject 삭제됨 (${obj.type})`);
+        this.gameObjectList.splice(i, 1);
+        //console.log(`[GameObjectManager] GameObject 삭제됨 (${obj.type})`);
         return true;
       }
       

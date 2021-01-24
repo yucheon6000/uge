@@ -12,7 +12,7 @@ class Renderer extends Component {
     
   }
   
-  render(gCtx, vCtx, gCvs, vCvs, self=this.gameObject) {
+  render(gCtx, gCvs, selfGameObject, selfComponent) {
     
   }
 }

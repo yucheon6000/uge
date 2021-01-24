@@ -46,6 +46,7 @@
 			padding: 15px;
 			top: 0;
 			right: 0;
+			z-index: 10;
 		}
 		
 		.button {
@@ -57,6 +58,11 @@
 			background: #b4ffce;
 			cursor: pointer;
 		}
+		
+		.hidden {
+		  z-index: -10;
+		  display: none;
+		}
 	</style>
 	<div id="buttons">
 		<div id="start" class="button" onclick="GameManager.start()">시작</div>
@@ -65,8 +71,17 @@
 	</div>
 	
 	<!-- Canvas	 -->
-  <canvas width="500px" height="300px" id="game-canvas"></canvas>
-  <canvas width="500px" height="300px" id="view-canvas"></canvas>
+  <canvas style="position:absolute; top:0; left:0; z-index: 9;"  id="game-canvas"></canvas>
+  <script>
+    let c = document.getElementById('game-canvas');
+    c.width = window.innerWidth;
+    c.height = window.innerHeight;
+    let ctx = c.getContext('2d');
+    
+    
+  </script>
+  
+  <canvas width="500px" height="300px" id="view-canvas" class="hidden"></canvas>
   
   <!-- Custom Styles -->
   <style>
@@ -81,6 +96,8 @@
   
   <!-- GameScripts -->
 	<script src="Game/main.js"></script>
+	
+	<img id="NormalBoomAtlas" class="hidden" src="Game/NormalBoomAtlas.png">
   
 </body>
 </html>

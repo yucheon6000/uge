@@ -17,8 +17,8 @@ class ManualRenderer extends Component {
 		this.renderFunc = func;
 	}
 	
-  render(gCtx, vCtx, gCvs, vCvs, self=this.gameObject) {
+  render(gCtx, gCvs, selfGameObject, selfComponent) {
 		if(this.renderFunc != null)
-			this.renderFunc(gCtx, vCtx, gCvs, vCvs, self);
+			this.renderFunc(gCtx, gCvs, selfGameObject, selfComponent);
   }
 }

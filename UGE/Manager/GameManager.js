@@ -45,7 +45,7 @@ GameManager.start = function() {
   }
   
   // New Frame
-  requestAnimationFrame(GameManager._frame);
+  GameManager._frame();
   return;
 }
 
@@ -60,9 +60,6 @@ GameManager._frame = function() {
 	if(GameManager.state == GameState.Pause)
 		return;
 	
-  // New frame
-  requestAnimationFrame(GameManager._frame);
-  
   // Set delta Time
   let curTime = new Date().getTime();
   UTime.deltaTime = (curTime - UTime._lastTime) / 1000;
@@ -79,8 +76,9 @@ GameManager._frame = function() {
 	let colliderComponents = [];
   
   // Call update method
-  for(let i = 0; i < GameManager.GameObjectManager.gameObjectList.length; i++) {
-    let obj = GameManager.GameObjectManager.gameObjectList[i];
+  let gameObjectListClone = [...GameManager.GameObjectManager.gameObjectList];
+  for(let i = 0; i < gameObjectListClone.length; i++) {
+    let obj = gameObjectListClone[i];
 		if(obj.enable) obj.update();
     for(let j = 0; j < obj.components.length; j++) {
       let com = obj.components[j]
@@ -98,8 +96,11 @@ GameManager._frame = function() {
   
   // Rendering
   GameManager.RenderManager.updateRender(renderComponents);
-  GameManager.RenderManager.renderCollider(colliderComponents)
+  //GameManager.RenderManager.renderCollider(colliderComponents)
   GameManager.CollisionManager.updateCollision(colliderComponents);
+  
+  // New frame
+  requestAnimationFrame(GameManager._frame);
 }
 
 // Time

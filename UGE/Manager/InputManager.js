@@ -54,20 +54,23 @@ class InputManager {
   initTouchEvnet() {
     let canvas = this._canvas;
     let self = this;
-    this._canvas.addEventListener("touchstart", () => {
+    this._canvas.addEventListener("touchstart", (event) => {
       UInput._touch = TouchState.Down;
       UInput.touchPosition = getMousePosition(canvas, event.touches[0]);
       self.touch = event.touches[0];
+      event.preventDefault();
     }, false)
     
     this._canvas.addEventListener("touchmove", (event) => {
       UInput._touch = TouchState.Move;
       UInput.touchPosition = getMousePosition(canvas, event.touches[0]);
+      event.preventDefault();
     }, false)
 
     this._canvas.addEventListener("touchend", (event) => {
       if(event.touches[0] == undefined)
         UInput._touch = TouchState.Up;
+        event.preventDefault();
     }, false)
   }
   
@@ -105,16 +108,21 @@ class InputManager {
       if(UInput.mouseState == MouseState.None || UInput.mouseState == MouseState.Up) {
         UInput.mouseState = MouseState.Down;
       } else if(UInput.mouseState == MouseState.Down) {
-        UInput.mouseState = MouseState.None;
+        UInput.mouseState = MouseState.Stay;
         UInput._mouseClick = null;
       } 
     }
     else if(UInput._mouseClick === false) {
-      if (UInput.mouseState == MouseState.None || UInput.mouseState == MouseState.Down) {
+      if (UInput.mouseState == MouseState.None || UInput.mouseState == MouseState.Down || UInput.mouseState == MouseState.Stay) {
         UInput.mouseState = MouseState.Up;
       } else if (UInput.mouseState == MouseState.Up) {
         UInput.mouseState = MouseState.None;
         UInput._mouseClick = null;
+      }
+    }
+    else if(UInput._mouseClick === null) {
+      if(UInput.mouseState == MouseState.Down) {
+        UInput.mouseState = MouseState.Stay;
       }
     }
   }
@@ -161,7 +169,7 @@ function getMousePosition(canvas, event) {
 let UInput = {};
 
 // Mouse 
-let MouseState = {None: 0, Down: 1, Up: 2};
+let MouseState = {None: 0, Down: 1, Stay:2, Up: 3};
 UInput._mouseClick = null;  // realtime
 UInput.mouseState = MouseState.None;  // gametime
 UInput.mousePosition = new Vector2(0, 0);
