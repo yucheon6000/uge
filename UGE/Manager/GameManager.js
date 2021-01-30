@@ -96,7 +96,7 @@ GameManager._frame = function() {
   
   // Rendering
   GameManager.RenderManager.updateRender(renderComponents);
-  //GameManager.RenderManager.renderCollider(colliderComponents)
+  GameManager.RenderManager.renderCollider(colliderComponents)
   GameManager.CollisionManager.updateCollision(colliderComponents);
   
   // New frame

@@ -18,11 +18,11 @@ class Collider extends Component {
   
   }
   
-  drawCollider(gCtx, gCanvas, self) {
+  updatePosition() {
     
   }
   
-  updatePosition() {
+  drawCollider(gCtx, gCanvas, selfComponent) {
     
   }
 }

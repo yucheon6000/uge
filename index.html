@@ -9,20 +9,25 @@
   
   <!-- Common -->
 	<script src="UGE/Common/Type.js"></script>
+  <script src="UGE/Common/UMath.js"></script>
   <script src="UGE/Common/Vector2.js"></script>
   <script src="UGE/Common/Utills.js"></script>
-  <script src="UGE/Common/UMath.js"></script>
   
   <!-- Component -->
   <script src="UGE/Component/Component.js"></script>
-  <script src="UGE/Component/Transform.js"></script>
-  <script src="UGE/Component/Renderer.js"></script>
-	<script src="UGE/Component/SpriteRenderer.js"></script>
-	<script src="UGE/Component/AtlasRenderer.js"></script>
-	<script src="UGE/Component/ManualRenderer.js"></script>
-	<script src="UGE/Component/Collider.js"></script>
-	<script src="UGE/Component/BoxCollider.js"></script>
-	<script src="UGE/Component/Camera.js"></script>
+  
+  <script src="UGE/Component/Transform/Transform.js"></script>
+  
+  <script src="UGE/Component/Renderer/Renderer.js"></script>
+	<script src="UGE/Component/Renderer/SpriteRenderer.js"></script>
+	<script src="UGE/Component/Renderer/AtlasRenderer.js"></script>
+	<script src="UGE/Component/Renderer/ManualRenderer.js"></script>
+	
+	<script src="UGE/Component/Collider/Collider.js"></script>
+	<script src="UGE/Component/Collider/CircleCollider.js"></script>
+	<script src="UGE/Component/Collider/BoxCollider.js"></script>
+	
+	<script src="UGE/Component/Camera/Camera.js"></script>
 	
   
   <!-- GameObject -->
@@ -43,6 +48,7 @@
 	    margin: 0;
 	    width: 100vw;
 	    height: 100vh;
+	    background: black;
 	  }
 	
 		#buttons {
@@ -90,12 +96,28 @@
   
   <!-- Custom Styles -->
   
-  <!-- GameScripts -->
-	<script src="Game/main.js"></script>
-	<script src="Game/Scripts/Explosion.js"></script>
-	
+  
+  <!-- Image -->
 	<img id="NormalBoomAtlas" style="z-index: -10; opacity: 0;" src="Game/Resource/NormalBoomAtlas.png">
 	<img id="NormalBoomAtlas" style="z-index: -10; opacity: 0;" src="Game/Resource/ExplosionAtlas.png">
+	<img id="NormalBoomAtlas" style="z-index: -10; opacity: 0;" src="Game/Resource/FactoryAtlas.png">
+	<img id="NormalBoomAtlas" style="z-index: -10; opacity: 0;" src="Game/Resource/GreenFrogHeadAtlas.png">
+	<img id="NormalBoomAtlas" style="z-index: -10; opacity: 0;" src="Game/Resource/RedFrogHeadAtlas.png">
+	<img id="NormalBoomAtlas" style="z-index: -10; opacity: 0;" src="Game/Resource/FrogBodyAtlas.png">
+  
+  <!-- GameScripts -->
+	<script src="Game/main.js"></script>
+	<script src="Game/Scripts/Factory.js"></script>
+	<script src="Game/Scripts/FrogBody.js"></script>
+	<script src="Game/Scripts/Frog.js"></script>
+	
+  <!-- Booms -->	
+	<script src="Game/Scripts/Booms/NormalBoom.js"></script>
+	
+	<!-- Particles -->
+	<script src="Game/Scripts/Particles/Explosion.js"></script>
+	
+	
   
 </body>
 </html>

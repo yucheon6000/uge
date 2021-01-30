@@ -1,8 +1,8 @@
 class Atlas extends Sprite {
-  constructor(spriteSrc, colLength, rowLength) {
+  constructor(spriteSrc, colLength=1, rowLength=1) {
     super(spriteSrc);
     this.size = new Vector2(this.size.x / colLength, this.size.y / rowLength);
-    this.halfSize = this.size.clone().mul(0.5);
+    this.halfSize = this.size.mul(0.5);
     this.length = colLength * rowLength;
     this.colLength = colLength;
     this.rowLength = rowLength;
@@ -50,6 +50,13 @@ class AtlasRenderer extends Component {
       return false;
   }
 
+  setAtlas (atlas, colIndex=0, rowIndex=0) {
+    this.atlas = atlas;
+    this.colIndex = colIndex;
+    this.rowIndex = rowIndex;
+    this._setStartPosition();
+  }
+
   setAtlasIndex(colIndex, rowIndex) {
     this.colIndex = colIndex;
     this.rowIndex = rowIndex;
@@ -86,7 +93,7 @@ class AtlasRenderer extends Component {
     gCtx.save();
 
     gCtx.translate(gCvs.width * 0.5 + this.transform.position.x, gCvs.height * 0.5 - this.transform.position.y);
-    gCtx.rotate(selfGameObject.transform.rotation * Math.PI / 180);
+    gCtx.rotate(-(selfGameObject.transform.rotation * Math.PI / 180));
     gCtx.translate(-(this.atlas.halfSize.x * this.transform.scale.x), -(this.atlas.halfSize.y * this.transform.scale.y));
     
     gCtx.drawImage(

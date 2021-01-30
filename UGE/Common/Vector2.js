@@ -14,35 +14,37 @@ class Vector2 {
   // 사칙연산
   // 새 객체 생성 후, 반환
   add(vec2) {
-    this.x += vec2.x;
-    this.y += vec2.y;
-    return this;
+    let origin = this.clone();
+    origin.x += vec2.x;
+    origin.y += vec2.y;
+    return origin;
   }
   
   sub(vec2) {
-    this.x -= vec2.x;
-    this.y -= vec2.y;
-    return this;
+    let origin = this.clone();
+    origin.x -= vec2.x;
+    origin.y -= vec2.y;
+    return origin;
   }
   
   mul(num) {
-    this.x *= num;
-    this.y *= num;
-    return this;
+    let origin = this.clone();
+    origin.x *= num;
+    origin.y *= num;
+    return origin;
   }
   
   div(num) {
-    this.x /= num;
-    this.y /= num;
-    return this;
+    let origin = this.clone();
+    origin.x /= num;
+    origin.y /= num;
+    return origin;
   }
 	
 	// Method
 	clone() {
 	  return new Vector2(this.x, this.y);
 	}
-	
-  // 
 	
 	// Get getter
 	get sqrMag() {
@@ -68,7 +70,7 @@ class Vector2 {
     return (360 + Math.round(deg)) % 360;
   }
   
-	// Static
+	// Static getter
 	static get zero() {
 		return new Vector2(0, 0);
 	}
@@ -89,11 +91,22 @@ class Vector2 {
 		return new Vector2(-1, 0);
 	}
 	
-	static get deg2rad() {
-	  return (Math.PI * 2) / 360;
+  // Static method
+	static radianToVector2(radian) {
+	  let x = Math.round(Math.cos(rad) * 1e2) / 1e2;
+	  let y = Math.round(Math.sin(rad) * 1e2) / 1e2;
+	  return new Vector2(x, y);
 	}
 	
-	static get rad2deg() {
-	  return 1 / Vector2.deg2rad;
+	static degreeToVector2(degree) {
+	  new Vector2.radianToVector2(degree * UMath.deg2rad);
+	}
+	
+	static rotateVector2(vector2, degree) {
+	  let x = Math.cos(UMath.deg2rad * degree) * vector2.x - Math.sin(UMath.deg2rad * degree) * vector2.y;
+	  x = Math.round(x * 1e2) / 1e2;
+	  let y = Math.sin(UMath.deg2rad * degree) * vector2.x + Math.cos(UMath.deg2rad * degree) * vector2.y;
+	  y = Math.round(y * 1e2) / 1e2;
+	  return new Vector2(x, y);
 	}
 }
