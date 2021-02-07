@@ -1,17 +1,26 @@
 class GameObject {
-  constructor(type='none', tag='none') {
+  constructor(name='None', tag='none') {
     let tr = new Transform();
     tr.setGameObject(this);
     
 		this.enable = true;
     this.components = [tr];
     this._transform = tr;
-    this._type = type;
+    
+    this.name = name;
+    this.tag = tag;
+  }
+  
+  set name(name) {
+    this._name = name;
+  }
+  
+  set tag(tag) {
     this._tag = tag;
   }
   
-  get type() {
-    return this._type;
+  get name() {
+    return this._name;
   }
   
   get tag() {
@@ -77,15 +86,15 @@ class GameObject {
   update() {}
   
   // Collision method
-  onTriggerEnterColiision(other) {
+  onTriggerEnterColiision(/*Collider*/other) {
     
   }
   
-  onTriggerStayrColiision(other) {
+  onTriggerStayColiision(/*Collider*/other) {
   
   }
   
-  onTriggerExitColiision(other) {
+  onTriggerExitColiision(/*Collider*/other) {
   
   }
 }

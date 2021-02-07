@@ -56,8 +56,8 @@
 	  body {
 	    margin: 0;
 	    /* width: 100vw;
-	    height: 100vh;
-	    background: black; */
+	    height: 100vh;*/
+	    background: black;
 	  }
 	
 		#buttons {
@@ -105,27 +105,35 @@
   <!-- Custom Styles -->
   
   
-  <!-- Image -->
-	<img id="NormalBoomAtlas" style="z-index: -10; opacity: 0;" src="Game/Resource/NormalBoomAtlas.png">
-	<img id="NormalBoomAtlas" style="z-index: -10; opacity: 0;" src="Game/Resource/ExplosionAtlas.png">
-	<img id="NormalBoomAtlas" style="z-index: -10; opacity: 0;" src="Game/Resource/FactoryAtlas.png">
-	<img id="NormalBoomAtlas" style="z-index: -10; opacity: 0;" src="Game/Resource/GreenFrogHeadAtlas.png">
-	<img id="NormalBoomAtlas" style="z-index: -10; opacity: 0;" src="Game/Resource/RedFrogHeadAtlas.png">
-	<img id="NormalBoomAtlas" style="z-index: -10; opacity: 0;" src="Game/Resource/FrogBodyAtlas.png">
+  <!-- Particles -->
+  <script src="Game/Scripts/Particle/WaterWave.js"></script>
+  <script src="Game/Scripts/Particle/Ghoost.js"></script>
   
   <!-- GameScripts -->
-	<script src="Game/main.js"></script>
 	<script src="Game/Scripts/Factory.js"></script>
-	<script src="Game/Scripts/FrogBody.js"></script>
-	<script src="Game/Scripts/Frog.js"></script>
+	
+	
+	<script src="Game/Scripts/Item/Item.js"></script>
+	<script src="Game/Scripts/Item/Coin.js"></script>
+	
+	<!-- Player -->
+	<script src="Game/Scripts/Player/PlayerState.js"></script>
+	<script src="Game/Scripts/Player/FrogBody.js"></script>
+	<script src="Game/Scripts/Player/Frog.js"></script>
+	
+	<!-- Monster -->
+	<script src="Game/Scripts/Monster/Monster.js"></script>
+	<script src="Game/Scripts/Monster/NormalSnake.js"></script>
+
+  <!-- Manager -->
+	<script src="Game/Scripts/Manager/FrogManager.js"></script>
+	<script src="Game/Scripts/Manager/SnakeManager.js"></script>
 	
   <!-- Booms -->	
-	<script src="Game/Scripts/Booms/NormalBoom.js"></script>
+	<script src="Game/Scripts/Weapon/NormalBoom.js"></script>
+  <script src="Game/Scripts/Weapon/Explosion.js"></script>
 	
-	<!-- Particles -->
-	<script src="Game/Scripts/Particles/Explosion.js"></script>
-	
-	
+	<script src="Game/main.js"></script>
   
 </body>
 </html>

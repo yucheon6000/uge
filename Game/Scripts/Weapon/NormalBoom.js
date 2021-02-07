@@ -3,7 +3,7 @@ class NormalBoom extends GameObject {
   constructor() {
     super('NormalBoom', 'normalBoom');
     this._renderer = new AtlasRenderer(normalBoomAtlas);
-    this._collider = new CircleCollider(30);
+    this._collider = new CircleCollider(40);
 
     // State
     this._isGround = false;
@@ -36,7 +36,7 @@ class NormalBoom extends GameObject {
       this.jump(this._jumpPower);
       this._jumpPower *= 5 / 6;
       this._jumpCount++;
-      if(this._jumpCount >= this._targetJumpCount)
+      if(this._jumpCount > this._targetJumpCount)
         this.explosion();
     }
     
@@ -88,7 +88,7 @@ class NormalBoom extends GameObject {
 
   explosion() {
     let explosion = Utills.newGameObject(Explosion);
-    explosion.init(this.transform.position.clone());
+    explosion.init(this.transform.position.clone(), 100);
     Utills.distroyGameObject(this);
     return;
   }
@@ -97,5 +97,16 @@ class NormalBoom extends GameObject {
     this._moveDirection = moveDirection;
     this._moveSpeed = moveSpeed;
     this.transform.rotation = moveDirection.deg - 90;
+  }
+  
+  onTriggerStayColiision(other) {
+    if(this._jumpCount < 1 || (this._jumpCount <= 1 && this._velocity.y > 0)) return;
+    
+    if(this._virtualPosition.y <= 20 && other.gameObject.tag == 'monster') {
+      let monster = other.gameObject;
+      if(!monster.alive) return;
+      this.explosion();
+    }
+    
   }
 }

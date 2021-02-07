@@ -2,8 +2,13 @@ class Sprite {
   constructor(spriteSrc) {
     this.img = new Image();
     this.img.src = spriteSrc;
-    this.size = new Vector2(this.img.width, this.img.height);
-    this.halfSize = this.size.mul(0.5);
+    this.size = new Vector2();
+    this.halfSize = new Vector2();
+    let self = this;
+    this.img.onload = function() {
+      self.size = new Vector2(self.img.width, self.img.height);
+      self.halfSize = self.size.mul(0.5);  
+    }
   }
 }
 

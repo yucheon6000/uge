@@ -17,14 +17,17 @@ class CircleCollider extends Collider {
   
   // 매 프레임마다 실행되는 로직
   update() {
-    this.updatePosition();
-    this.drawCollider(UScreen.gameCtx, UScreen.gameCanvas, this);
   }
 
   updatePosition() {
     if(!this.gameObject) return;
-    let addVec = Vector2.rotateVector2(this.pivot, this.transform.rotation);
-    this.center = this.transform.position.add(addVec);
+    if(this.pivot.equal(Vector2.zero)) {
+      this.center = this.transform.position.clone();
+    }
+    else {
+      let addVec = Vector2.rotateVector2(this.pivot, this.transform.rotation);
+      this.center = this.transform.position.add(addVec);
+    }
   }
   
   

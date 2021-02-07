@@ -17,13 +17,11 @@ class GameObjectManager {
   }
   
   removeGameObject(/*GameObject*/obj) {
-    for(let i = 0; i < this.gameObjectList.length; i++) 
-      if(this.gameObjectList[i] == obj) {
-        this.gameObjectList.splice(i, 1);
-        //console.log(`[GameObjectManager] GameObject 삭제됨 (${obj.type})`);
+    let index = this.gameObjectList.indexOf(obj);
+    if(index != -1) {
+        this.gameObjectList.splice(index, 1);
         return true;
-      }
-      
+    }
     return false;
   }
 }

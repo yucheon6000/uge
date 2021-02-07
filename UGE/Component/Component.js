@@ -25,4 +25,6 @@ class Component {
   }
   
   get transform() {return this.gameObject.transform;}
+  get name() {return this.gameObject.name;}
+  get tag() {return this.gameObject.tag;}
 }

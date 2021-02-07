@@ -1,11 +1,14 @@
 class Atlas extends Sprite {
   constructor(spriteSrc, colLength=1, rowLength=1) {
     super(spriteSrc);
-    this.size = new Vector2(this.size.x / colLength, this.size.y / rowLength);
-    this.halfSize = this.size.mul(0.5);
     this.length = colLength * rowLength;
     this.colLength = colLength;
     this.rowLength = rowLength;
+    let self = this;
+    this.img.onload = function() {
+      self.size = new Vector2(self.img.width / colLength, self.img.height / rowLength);
+      self.halfSize = self.size.mul(0.5);
+    }
   }
   
   getStartPositionByIndex(colIndex, rowIndex) {
@@ -57,7 +60,7 @@ class AtlasRenderer extends Component {
     this._setStartPosition();
   }
 
-  setAtlasIndex(colIndex, rowIndex) {
+  setIndex(colIndex, rowIndex) {
     this.colIndex = colIndex;
     this.rowIndex = rowIndex;
     this._setStartPosition();

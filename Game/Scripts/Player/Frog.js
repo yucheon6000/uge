@@ -7,6 +7,9 @@ class Frog extends GameObject {
     this._renderer = new AtlasRenderer(greenFrogAtlas, 0, 0, 3);
     this._collider = new CircleCollider(20);
       
+    // State
+    this.state = new PlayerState();
+      
     // Movement
     this._moveDirection = Vector2.left;
     this._originPosition;
@@ -20,10 +23,10 @@ class Frog extends GameObject {
     this._gravity = -600;
     this._jumpPower = 300;
     this._stayTimer = 0;
-    this._targetStayTimer = 1.5;
+    this._targetStayTime = 0.5;
 
     // Touch
-    this._changedFrog = false;
+    this._readyAttck = false;
     this._lastRotation;
     
     // Animation
@@ -45,21 +48,8 @@ class Frog extends GameObject {
   }
   
   update() {
-    if(UInput.touchState == TouchState.Down) {
-      this._changedFrog = true;
-      this._renderer.setAtlas(redFrogAtlas, this._renderer.colIndex, this._renderer.rowIndex);
-      this._lastRotation = this.transform.rotation;
-      this.transform.rotation = 90;
-    }
-    else if(UInput.touchState == TouchState.Up) {
-      this._changedFrog = false;
-      this._renderer.setAtlas(greenFrogAtlas, this._renderer.colIndex, this._renderer.rowIndex);
-      this.transform.rotation = this._lastRotation;
-    }
-    
-    
     // Movement
-    if (!this._changedFrog && this._jumping)
+    if (!this._readyAttck && this._jumping)
       this.updateMovement();
       
     this.updateJump();
@@ -87,7 +77,7 @@ class Frog extends GameObject {
   updateJump() {
     // 바닥에 있어 점프 가능한 상태
     if(this._isGround) {
-      if(this._stayTimer >= this._targetStayTimer)
+      if(this._stayTimer >= this._targetStayTime && !this._readyAttck)
         this.jump();
       else
         this._stayTimer += UTime.deltaTime;
@@ -105,12 +95,30 @@ class Frog extends GameObject {
    }
   }
   
+  readyAttack(value) {
+    if(value) {
+      this._readyAttck = true;
+      this._renderer.setAtlas(redFrogAtlas, this._renderer.colIndex, this._renderer.rowIndex);
+      this._lastRotation = this.transform.rotation;
+      this.transform.rotation = 90;
+    }
+    else {
+      this._readyAttck = false;
+      this._renderer.setAtlas(greenFrogAtlas, this._renderer.colIndex, this._renderer.rowIndex);
+      this.transform.rotation = this._lastRotation;
+    }
+  }
+  
   jump() {
+    if(this._jumping) return;
+    
     this._virtualPosition.y = 0;
     this._velocity.y = this._jumpPower;
     this._stayTimer = 0;
     this._isGround = false;
     this._jumping = true;
+    let waterwave = Utills.newGameObject(WaterWave);
+    waterwave.init(this.transform.position);
   }
   
   updateAnimation() {
@@ -132,6 +140,8 @@ class Frog extends GameObject {
     else
       this._body.land();
   }
+  
+  get isGround() {
+    return this._isGround;
+  }
 }
-
-let frog = Utills.newGameObject(Frog);

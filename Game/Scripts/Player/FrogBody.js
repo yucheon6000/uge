@@ -21,14 +21,14 @@ class FrogBody extends GameObject {
   
   jump() {
     if(!this._jumping) {
-      this._renderer.setAtlasIndex(1, 0);
+      this._renderer.setIndex(1, 0);
       this._jumping = true;
     }
   }
   
   land() {
     if(this._jumping) {
-      this._renderer.setAtlasIndex(0, 0);
+      this._renderer.setIndex(0, 0);
       this._jumping = false;
     }
   }

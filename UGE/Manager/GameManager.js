@@ -11,6 +11,9 @@ GameManager.init = function(initValues) {
   let renderReady = GameManager.RenderManager.init(initValues.gameCanvasId, initValues.cameraGameObject);
   let inputReady = GameManager.InputManager.init(initValues.gameCanvasId);
 
+  this._rendererComponent = [];
+  this._colliderComponent = [];
+
   // Finish init 
   console.log('[GameManager] 게임을 초기화했습니다.');
   GameManager._ready = true;
@@ -60,23 +63,45 @@ GameManager._frame = function() {
 	if(GameManager.state == GameState.Pause)
 		return;
 	
+  // New frame
+  requestAnimationFrame(GameManager._frame);
+	
+	// Reset component List
+	this._rendererComponent = [];
+	this._colliderComponent = [];
+	
   // Set delta Time
   let curTime = new Date().getTime();
   UTime.deltaTime = (curTime - UTime._lastTime) / 1000;
   UTime._lastTime = curTime;
+
+  // Find Collider
+  let gameObjectListClone = [...GameManager.GameObjectManager.gameObjectList];
+  gameObjectListClone.forEach((obj) => {
+    obj.components.forEach((com) => {
+      if (UMath.checkRange(com.type, ComponentType.Collider, ComponentType.ColliderMax)) {
+        this._colliderComponent.push(com);
+        com.updatePosition();
+      }
+    })
+  })
   
+  // Update check collision
+  GameManager.CollisionManager.updateCollision(this._colliderComponent);
   
-	// Update key state
+  // Call collision event
+  this._colliderComponent.forEach((com) => {
+    if(!com.enable) return;
+    com.sendEvent();
+  })
+  
+	// Update input state
 	GameManager.InputManager.updateKeyState();
 	GameManager.InputManager.updateMouseState();
 	GameManager.InputManager.updateTouchState();
-	
-	// Find components
-	let renderComponents = [];
-	let colliderComponents = [];
   
   // Call update method
-  let gameObjectListClone = [...GameManager.GameObjectManager.gameObjectList];
+  gameObjectListClone = [...GameManager.GameObjectManager.gameObjectList];
   for(let i = 0; i < gameObjectListClone.length; i++) {
     let obj = gameObjectListClone[i];
 		if(obj.enable) obj.update();
@@ -86,21 +111,14 @@ GameManager._frame = function() {
       
       // Push render Component
       if(UMath.checkRange(com.type, ComponentType.Renderer, ComponentType.RendererMax)){
-        renderComponents.push(com);
-      }
-      else if(UMath.checkRange(com.type, ComponentType.Collider, ComponentType.ColliderMax)) {
-        colliderComponents.push(com);
+        this._rendererComponent.push(com);
       }
     }
   }
   
   // Rendering
-  GameManager.RenderManager.updateRender(renderComponents);
-  GameManager.RenderManager.renderCollider(colliderComponents)
-  GameManager.CollisionManager.updateCollision(colliderComponents);
-  
-  // New frame
-  requestAnimationFrame(GameManager._frame);
+  GameManager.RenderManager.updateRender(this._rendererComponent);
+  // GameManager.RenderManager.renderCollider(this._colliderComponent);
 }
 
 // Time
