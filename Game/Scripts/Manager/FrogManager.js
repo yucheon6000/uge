@@ -16,7 +16,7 @@ class FrogManager extends GameObject {
   }
 
   get frog() {
-    return this._frog
+    return this._frog;
   }
 
   awake() {
@@ -56,7 +56,7 @@ class FrogManager extends GameObject {
     else if (UInput.getTouchUp() && this.readyAttack) {
       let moveDirection = this.attackVector.normalized;
       let moveSpeed = this.attackVector.mag;
-      let boom = Utills.newGameObject(NormalBoom, this.frog.transform.position);
+      let boom = Utills.newGameObject(PoisonBoom, this.frog.transform.position);
       boom.init(moveDirection, moveSpeed);
       this.touching = false;
       

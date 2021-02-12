@@ -55,11 +55,37 @@
 	  
 	  body {
 	    margin: 0;
-	    /* width: 100vw;
-	    height: 100vh;*/
-	    background: black;
 	  }
 	
+	  #main-container {
+	    position: relative;
+	    width:56.25vh;
+	    height: 100vh;
+	    background: red;
+	  }
+	
+	  /* UI */
+	  #ui {
+	    display: flex;
+	    flex-direction: row;
+	    position: fixed;
+	    padding: 15px;
+	    top: 0;
+	    left: 0;
+	    z-index: 10;
+	  }
+	  
+	  #coin {
+	    border-radius: 4px;
+	    padding: 4px;
+	    text-align: center;
+	    margin-bottom: 4px;
+	    color: #f7ce2a;
+	    background: #ffff7d;
+	    cursor: pointer;
+	  }
+	
+	  /* Button */
 		#buttons {
 			display: flex;
 			flex-direction: column;
@@ -80,26 +106,44 @@
 			cursor: pointer;
 		}
 		
-		.hidden {
-		  z-index: -10;
-		  display: none;
+		/* Background */
+		#background {
+		  width:100%;
+		  height: 100%;
+		  position: fixed;
+		  top:0;
+		  left: 0;
+		  display: block;
+		  z-index: 8;
+		  
+		  background-image: url('Game/Resource/Background.png');
+		  background-size: auto;
+      background-repeat: repeat;		  
 		}
 	</style>
-	<div id="buttons">
-		<div id="start" class="button" onclick="GameManager.start()">시작</div>
-		<div id="pause" class="button" onclick="GameManager.pause()">일시정지</div>
-		<div id="fps" class="button" >0</div>
+	<div id="ui">
+	  <div id="coin">0</div>
 	</div>
 	
-	<!-- Canvas	 -->
-  <canvas style="display: block; z-index: 9;"  id="game-canvas"></canvas>
+	<div id="buttons">
+	  <div id="start" class="button" onclick="GameManager.start()">시작</div>
+	  <div id="pause" class="button" onclick="GameManager.pause()">일시정지</div>
+	  <div id="fps" class="button" >0</div>
+	</div>
+	
+	
+	<div id="main-container">
+    <div id="background" style="position: relative; width:100%; height:100%"></div>
+    <canvas id="game-canvas" style="position: fixed; top:0; left: 0; display: block; z-index: 9;"></canvas>
+	</div>
+	
   <script>
   window.onload = () => {
-    let c = document.getElementById('game-canvas');
-    c.width = window.innerWidth;
-    c.height = window.innerHeight;
+    let target = document.getElementById('game-canvas');
+    let t = document.getElementById('main-container');
+    target.width = t.clientWidth;
+    target.height = t.clientHeight;
   };
-    
   </script>
   
   <!-- Custom Styles -->
@@ -118,6 +162,7 @@
 	
 	<!-- Player -->
 	<script src="Game/Scripts/Player/PlayerState.js"></script>
+	<script src="Game/Scripts/Player/Inventory.js"></script>
 	<script src="Game/Scripts/Player/FrogBody.js"></script>
 	<script src="Game/Scripts/Player/Frog.js"></script>
 	
@@ -132,6 +177,13 @@
   <!-- Booms -->	
 	<script src="Game/Scripts/Weapon/NormalBoom.js"></script>
   <script src="Game/Scripts/Weapon/Explosion.js"></script>
+  
+	<script src="Game/Scripts/Weapon/PoisonBoom.js"></script>
+	<script src="Game/Scripts/Weapon/PoisonExplosion.js"></script>
+	
+	
+	<script src="Game/Scripts/Controller/TouchController.js"></script>
+  
 	
 	<script src="Game/main.js"></script>
   

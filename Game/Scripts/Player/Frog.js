@@ -1,5 +1,6 @@
 let greenFrogAtlas = new Atlas('Game/Resource/GreenFrogHeadAtlas.png', 3, 2);
 let redFrogAtlas = new Atlas('Game/Resource/RedFrogHeadAtlas.png', 3, 2);
+let purpleFrogAtlas = new Atlas('Game/Resource/PurpleFrogHeadAtlas.png', 3, 2);
 
 class Frog extends GameObject {
   constructor() {
@@ -9,7 +10,8 @@ class Frog extends GameObject {
       
     // State
     this.state = new PlayerState();
-      
+    this.inventory = new Inventory();
+    
     // Movement
     this._moveDirection = Vector2.left;
     this._originPosition;
@@ -143,5 +145,11 @@ class Frog extends GameObject {
   
   get isGround() {
     return this._isGround;
+  }
+  
+  onTriggerStayColiision(other) {
+    if(other.name == 'Factory') {
+      // other.gameObject.
+    }
   }
 }

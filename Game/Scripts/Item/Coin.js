@@ -62,8 +62,8 @@ class Coin extends Item {
   
   onTriggerEnterColiision(other) {
     if(other.name == 'Frog') {
-      let playerState = other.gameObject.state;
-      playerState.addPoint(this.pointAmount);
+      let playerInventory = other.gameObject.inventory;
+      playerInventory.addItem('coin', this.pointAmount);
       Utills.distroyGameObject(this);
     }
   }

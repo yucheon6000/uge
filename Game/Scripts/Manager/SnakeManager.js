@@ -17,7 +17,7 @@ class SnakeManager extends GameObject {
   
   updateSpawn() {
     this.spawnTimer += UTime.deltaTime;
-    if(this.spawnTimer >= 1) {
+    if(this.spawnTimer >= 2) {
       this.spawnTimer = 0;
       this.spawn();
     }

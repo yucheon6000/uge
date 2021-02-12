@@ -70,15 +70,6 @@ class Vector2 {
     return (360 + Math.round(deg)) % 360;
   }
   
-  // get degree() {
-  //   let n = this.normalized;
-  //   if (n.sqrMag == 0) return 0;
-  
-  //   let r = Math.acos(n.x);
-  //   if(this.y < 0) r *= -1;
-  //   return Math.round(r * UMath.rad2deg * 1e2) / 1e2;
-  // }
-  
 	// Static getter
 	static get zero() {
 		return new Vector2(0, 0);

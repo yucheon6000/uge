@@ -10,7 +10,7 @@ class PlayerState {
   }
   
   addBoomCount(boomName, amount) {
-    if(!this._boomCount.hasProperty(boomName))
+    if(!this._boomCount.hasOwnProperty(boomName))
       this._boomCount[boomName] = 0;
       
     this._boomCount[boomName] += amount;
@@ -20,7 +20,7 @@ class PlayerState {
   }
   
   getBoomCount(boomName) {
-    if (!this._boomCount.hasProperty(boomName))
+    if (!this._boomCount.hasOwnProperty(boomName))
       this._boomCount[boomName] = 0;
       
     return this._boomCount[boomName];

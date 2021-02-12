@@ -72,7 +72,7 @@ class NormalSnake extends Monster {
     let ghoost = Utills.newGameObject(Ghoost);
     ghoost.init(this.transform.position.clone());
     
-    this.spawnCoin(30, 10);
+    this.spawnCoin(10, 10);
   }
   
   onTriggerEnterColiision(other) {
