@@ -1,7 +1,7 @@
 class Utills {
   static newGameObject(gameObjectName, position) {
     let obj = new gameObjectName();
-    if(position != undefined)
+    if(position)
       obj.transform.position = position;
     
     // 게임 메니저에 추가
