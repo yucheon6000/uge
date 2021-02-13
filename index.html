@@ -59,7 +59,8 @@
 	
 	  #main-container {
 	    position: relative;
-	    width:56.25vh;
+	    /* width:56.25vh; */
+	    width: calc(var(--vh, 1vh) * 56.25);
 	    height: 100vh;
 	    background: red;
 	    margin: 0 auto;
@@ -171,6 +172,9 @@
     let t = document.getElementById('main-container');
     target.width = window.innerHeight * 0.5625;
     target.height = window.innerHeight;
+    
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
     
     mainInit();
   };
