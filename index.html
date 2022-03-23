@@ -1,100 +1,102 @@
 <!DOCTYPE html>
 <html lang="kr">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=Chrome">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>UGE</title>
-  
-  <!-- Common -->
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Chrome">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>UGE</title>
+
+	<!-- Common -->
 	<script src="UGE/Common/Type.js"></script>
-  <script src="UGE/Common/UMath.js"></script>
-  <script src="UGE/Common/Vector2.js"></script>
-  <script src="UGE/Common/Utills.js"></script>
-  
-  <!-- Component -->
-  <script src="UGE/Component/Component.js"></script>
-  
-  <script src="UGE/Component/Transform/Transform.js"></script>
-  
-  <script src="UGE/Component/Renderer/Renderer.js"></script>
+	<script src="UGE/Common/UMath.js"></script>
+	<script src="UGE/Common/Vector2.js"></script>
+	<script src="UGE/Common/Utills.js"></script>
+
+	<!-- Component -->
+	<script src="UGE/Component/Component.js"></script>
+
+	<script src="UGE/Component/Transform/Transform.js"></script>
+
+	<script src="UGE/Component/Renderer/Renderer.js"></script>
 	<script src="UGE/Component/Renderer/SpriteRenderer.js"></script>
 	<script src="UGE/Component/Renderer/AtlasRenderer.js"></script>
 	<script src="UGE/Component/Renderer/ManualRenderer.js"></script>
-	
+
 	<script src="UGE/Component/Collider/Collider.js"></script>
 	<script src="UGE/Component/Collider/CircleCollider.js"></script>
 	<script src="UGE/Component/Collider/BoxCollider.js"></script>
-	
+
 	<script src="UGE/Component/Camera/Camera.js"></script>
-	
-  
-  <!-- GameObject -->
-  <script src="UGE/GameObject/GameObject.js"></script>
-  
-  <!-- Manager -->
-  <script src="UGE/Manager/GameObjectManager.js"></script>
-  <script src="UGE/Manager/RenderManager.js"></script>
-  <script src="UGE/Manager/InputManager.js"></script>
-  <script src="UGE/Manager/CollisionManager.js"></script>
-  <script src="UGE/Manager/GameManager.js"></script>
+
+
+	<!-- GameObject -->
+	<script src="UGE/GameObject/GameObject.js"></script>
+
+	<!-- Manager -->
+	<script src="UGE/Manager/GameObjectManager.js"></script>
+	<script src="UGE/Manager/RenderManager.js"></script>
+	<script src="UGE/Manager/InputManager.js"></script>
+	<script src="UGE/Manager/CollisionManager.js"></script>
+	<script src="UGE/Manager/GameManager.js"></script>
 </head>
 
 <body>
 	<!-- Buttons -->
 	<style>
-	  html, body {
-	    margin: 0;
-	    width 100%;
-	    height: 100%;
-	    border: 0;
-	    overflow: hidden;
-	    display: block;
-	  }
-	  
-	  body {
-	    margin: 0;
-	  }
-	
-	  #main-container {
-	    position: relative;
-	    width: calc(var(--vh, 1vh) * 56.25);
-	    height: 100vh;
-	    background: red;
-	    margin: 0 auto;
-	  }
-	
-    @media screen and (max-aspect-ratio: 9/16) {
-      #main-container {
-      width: 100vw !important;
-      height: calc(var(--vw, 1vw) * 177.78) !important;
-      background: pink !important;
-      }
-    }
+		html,
+		body {
+			margin: 0;
+			width: 100%;
+			height: 100%;
+			border: 0;
+			overflow: hidden;
+			display: block;
+		}
 
-	  /* UI */
-	  #ui {
-	    display: flex;
-	    flex-direction: row;
-	    position: fixed;
-	    padding: 15px;
-	    top: 0;
-	    left: 0;
-	    z-index: 10;
-	  }
-	  
-	  #coin {
-	    border-radius: 4px;
-	    padding: 4px;
-	    text-align: center;
-	    margin-bottom: 4px;
-	    color: #f7ce2a;
-	    background: #ffff7d;
-	    cursor: pointer;
-	  }
-	
-	  /* Button */
+		body {
+			margin: 0;
+		}
+
+		#main-container {
+			position: relative;
+			width: calc(var(--vh, 1vh) * 56.25);
+			height: 100vh;
+			/* background: red; */
+			margin: 0 auto;
+		}
+
+		@media screen and (max-aspect-ratio: 9/16) {
+			#main-container {
+				width: 100vw !important;
+				height: calc(var(--vw, 1vw) * 177.78) !important;
+				/* background: pink !important; */
+			}
+		}
+
+		/* UI */
+		#ui {
+			display: flex;
+			flex-direction: row;
+			position: fixed;
+			padding: 15px;
+			top: 0;
+			left: 0;
+			z-index: 10;
+		}
+
+		#coin {
+			border-radius: 4px;
+			padding: 4px;
+			text-align: center;
+			margin-bottom: 4px;
+			color: #f7ce2a;
+			background: #ffff7d;
+			cursor: pointer;
+		}
+
+		/* Button */
 		#buttons {
 			display: flex;
 			flex-direction: column;
@@ -104,7 +106,7 @@
 			right: 0;
 			z-index: 10;
 		}
-		
+
 		.button {
 			border-radius: 4px;
 			padding: 4px;
@@ -114,157 +116,158 @@
 			background: #b4ffce;
 			cursor: pointer;
 		}
-		
+
 		/* Background */
 		#background {
-		  width:100%;
-		  height: 100%;
-		  position: fixed;
-		  top:0;
-		  left: 0;
-		  display: block;
-		  
-		  background-image: url('Game/Resource/Background.png');
-		  background-size: auto auto;
-      background-repeat: repeat;		  
+			width: 100%;
+			height: 100%;
+			position: fixed;
+			top: 0;
+			left: 0;
+			display: block;
+
+			background-image: url('Game/Resource/Background.png');
+			background-size: auto auto;
+			background-repeat: repeat;
 		}
-		
+
 		#roads {
-		  position: absolute;
-		  display: flex;
-		  flex-direction: row;
-		  width: 100%;
-		  height: 100%;
-		  justify-content: space-around;
+			position: absolute;
+			display: flex;
+			flex-direction: row;
+			width: 100%;
+			height: 100%;
+			justify-content: space-around;
 		}
-		
+
 		.road {
-		  position: relative;
-		  display: block;
-		  width: 100%;
-		  height: 100%;
-		  
-		  background-image: url('Game/Resource/Road.png');
-		  background-size: 100% auto;
-		  background-repeat: repeat-y;
+			position: relative;
+			display: block;
+			width: 100%;
+			height: 100%;
+
+			background-image: url('Game/Resource/Road.png');
+			background-size: 100% auto;
+			background-repeat: repeat-y;
 		}
 	</style>
 	<div id="ui">
-	  <div id="coin">0</div>
+		<div id="coin">0</div>
 	</div>
-	
+
 	<div id="buttons">
-	  <div id="start" class="button" onclick="GameManager.start()">시작</div>
-	  <div id="pause" class="button" onclick="GameManager.pause()">일시정지</div>
-	  <div id="fps" class="button" >0</div>
+		<div id="start" class="button" onclick="GameManager.start()">시작</div>
+		<div id="pause" class="button" onclick="GameManager.pause()">일시정지</div>
+		<div id="fps" class="button">0</div>
 	</div>
-	
-	
+
+
 	<div id="main-container">
-    <div id="background" style="position: absolute; width:100%; height:100%"></div>
-    
-    <div id="roads">
-      <div class="road"></div>
-      <div class="road"></div>
-      <div class="road"></div>
-      <div class="road"></div>
-    </div>
-    
-    <canvas id="game-canvas" style="border: 1px solid black; position: absolute; display: block;"></canvas>
+		<div id="background" style="position: absolute; width:100%; height:100%"></div>
+
+		<div id="roads">
+			<div class="road"></div>
+			<div class="road"></div>
+			<div class="road"></div>
+			<div class="road"></div>
+		</div>
+
+		<canvas id="game-canvas" style="position: absolute; display: block;"></canvas>
 	</div>
-	
-  <script>
-  window.onload = () => {
-    let target = document.getElementById('game-canvas');
-    
-    let winWidth = window.innerWidth;
-    let winHeight = window.innerHeight;
-    
-    //if(winWidth / winHeight >= 9 / 15) {
-    //  target.width = winHeight * 0.5625;
-    //  target.height = winHeight;
-    //}
-    //else {
-    //  target.width = winWidth;
-    //  target.height = winWidth * 1.7778;
-    //}
-    
-    let vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty('--vh', `${vh}px`);
-    
-    let vw = window.innerWidth * 0.01;
-    document.documentElement.style.setProperty('--vw', `${vw}px`);
-  
-    let nWidth = 382;
-    let nHeight = 680;
-    target.width = nWidth;
-    target.height = nHeight;  
-    resize();
-    
-    window.addEventListener('resize', () => {
-      resize();
-    })
-    
-    function resize() {
-      let winWidth = window.innerWidth;
-      let winHeight = window.innerHeight;
-      let w, h;
-      if(winWidth / winHeight >= 9 / 16) {
-        w = winHeight * 0.5625;
-        h = winHeight;
-      }
-      else {
-        w = winWidth;
-        h = winWidth * 1.7778;
-      }
-      console.log(winWidth, winHeight, w, h)
-      target.style.width = `${w}px`;
-      target.style.height = `${h}px`;
-    }
-    
-    mainInit();
-  };
-  </script>
-  
-  <!-- Custom Styles -->
-  
-  
-  <!-- Particles -->
-  <script src="Game/Scripts/Particle/WaterWave.js"></script>
-  <script src="Game/Scripts/Particle/Ghoost.js"></script>
-  
-  <!-- GameScripts -->
+
+	<script>
+		window.onload = () => {
+			let target = document.getElementById('game-canvas');
+
+			let winWidth = window.innerWidth;
+			let winHeight = window.innerHeight;
+
+			//if(winWidth / winHeight >= 9 / 15) {
+			//  target.width = winHeight * 0.5625;
+			//  target.height = winHeight;
+			//}
+			//else {
+			//  target.width = winWidth;
+			//  target.height = winWidth * 1.7778;
+			//}
+
+			let vh = window.innerHeight * 0.01;
+			document.documentElement.style.setProperty('--vh', `${vh}px`);
+
+			let vw = window.innerWidth * 0.01;
+			document.documentElement.style.setProperty('--vw', `${vw}px`);
+
+			let nWidth = 382;
+			let nHeight = 680;
+			target.width = nWidth;
+			target.height = nHeight;
+			resize();
+
+			window.addEventListener('resize', () => {
+				resize();
+			})
+
+			function resize() {
+				let winWidth = window.innerWidth;
+				let winHeight = window.innerHeight;
+				let w, h;
+				if (winWidth / winHeight >= 9 / 16) {
+					w = winHeight * 0.5625;
+					h = winHeight;
+				}
+				else {
+					w = winWidth;
+					h = winWidth * 1.7778;
+				}
+				console.log(winWidth, winHeight, w, h)
+				target.style.width = `${w}px`;
+				target.style.height = `${h}px`;
+			}
+
+			mainInit();
+		};
+	</script>
+
+	<!-- Custom Styles -->
+
+
+	<!-- Particles -->
+	<script src="Game/Scripts/Particle/WaterWave.js"></script>
+	<script src="Game/Scripts/Particle/Ghoost.js"></script>
+
+	<!-- GameScripts -->
 	<script src="Game/Scripts/Factory.js"></script>
-	
-	
+
+
 	<script src="Game/Scripts/Item/Item.js"></script>
 	<script src="Game/Scripts/Item/Coin.js"></script>
-	
+
 	<!-- Player -->
 	<script src="Game/Scripts/Player/PlayerState.js"></script>
 	<script src="Game/Scripts/Player/Inventory.js"></script>
 	<script src="Game/Scripts/Player/FrogBody.js"></script>
 	<script src="Game/Scripts/Player/Frog.js"></script>
-	
+
 	<!-- Monster -->
 	<script src="Game/Scripts/Monster/Monster.js"></script>
 	<script src="Game/Scripts/Monster/NormalSnake.js"></script>
 
-  <!-- Manager -->
+	<!-- Manager -->
 	<script src="Game/Scripts/Manager/FrogManager.js"></script>
 	<script src="Game/Scripts/Manager/SnakeManager.js"></script>
-	
-  <!-- Booms -->
+
+	<!-- Booms -->
 	<script src="Game/Scripts/Weapon/NormalBoom.js"></script>
-  <script src="Game/Scripts/Weapon/Explosion.js"></script>
-  
+	<script src="Game/Scripts/Weapon/Explosion.js"></script>
+
 	<script src="Game/Scripts/Weapon/PoisonBoom.js"></script>
 	<script src="Game/Scripts/Weapon/PoisonExplosion.js"></script>
-	
-	
+
+
 	<script src="Game/Scripts/Controller/TouchController.js"></script>
-  
+
 	<script src="Game/main.js"></script>
-  
+
 </body>
+
 </html>
