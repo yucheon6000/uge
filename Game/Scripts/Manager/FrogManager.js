@@ -2,17 +2,17 @@ class FrogManager extends GameObject {
   constructor() {
     super('FrogManager', 'frogManager');
     this.fpsDiv = document.getElementById('fps');
-    
+
     // Frog
     this._frog = Utills.newGameObject(Frog);
     this.attackVector = new Vector2();
     this.readyAttack = false;
-    
+
     // Touch
-     this.touchStartPosition = new Vector2(0, 0);
-     this.touchCurrentPosition = new Vector2(0, 0);
-     this.touching = false;
-     this.renderer = new ManualRenderer(-1);
+    this.touchStartPosition = new Vector2(0, 0);
+    this.touchCurrentPosition = new Vector2(0, 0);
+    this.touching = false;
+    this.renderer = new ManualRenderer(-1);
   }
 
   get frog() {
@@ -23,16 +23,16 @@ class FrogManager extends GameObject {
     this.renderer.setManualRenderFunc(this.renderFunc);
     this.addComponent(this.renderer);
   }
-  
+
   update() {
     // Print fps
     this.fpsDiv.textContent = parseInt(1 / UTime.deltaTime);
-    
+
     this.updateTouch();
   }
-  
+
   updateTouch() {
-    if(!this.frog.isGround) return;
+    if (!this.frog.isGround) return;
     // Touch
     if (UInput.getTouchDown()) {
       this.touchStartPosition = UInput.touchPosition.clone();
@@ -46,7 +46,7 @@ class FrogManager extends GameObject {
     else if (UInput.getTouch() && this.readyAttack) {
       this.touchCurrentPosition = UInput.touchPosition.clone();
       let origin = this.touchCurrentPosition.sub(this.touchStartPosition);
-      if(origin.mag > 300) {
+      if (origin.mag > 300) {
         let newPos = origin.normalized.mul(300);
         this.attackVector = newPos;
       }
@@ -59,13 +59,45 @@ class FrogManager extends GameObject {
       let boom = Utills.newGameObject(PoisonBoom, this.frog.transform.position);
       boom.init(moveDirection, moveSpeed);
       this.touching = false;
-      
+
+      this.frog.jump();
+      this.frog.readyAttack(this.touching);
+      this.readyAttack = false;
+    }
+
+    // Mouse
+    if (UInput.getMouseButtonDown()) {
+      this.touchStartPosition = UInput.mousePosition.clone();
+      this.touchCurrentPosition = UInput.mousePosition.clone();
+      this.touching = true;
+      this.attackVector = new Vector2();
+      this.frog.readyAttack(this.touching);
+      this.readyAttack = true;
+
+    }
+    else if (UInput.getMouseButton() && this.readyAttack) {
+      this.touchCurrentPosition = UInput.mousePosition.clone();
+      let origin = this.touchCurrentPosition.sub(this.touchStartPosition);
+      if (origin.mag > 300) {
+        let newPos = origin.normalized.mul(300);
+        this.attackVector = newPos;
+      }
+      else
+        this.attackVector = origin;
+    }
+    else if (UInput.getMouseButtonUp() && this.readyAttack) {
+      let moveDirection = this.attackVector.normalized;
+      let moveSpeed = this.attackVector.mag;
+      let boom = Utills.newGameObject(PoisonBoom, this.frog.transform.position);
+      boom.init(moveDirection, moveSpeed);
+      this.touching = false;
+
       this.frog.jump();
       this.frog.readyAttack(this.touching);
       this.readyAttack = false;
     }
   }
-  
+
   renderFunc(gCtx, gCvs, self, selfComponent) {
     if (self.touching) {
       let rad = 30;
@@ -76,21 +108,21 @@ class FrogManager extends GameObject {
       gCtx.strokeStyle = '#98989880';
       gCtx.lineWidth = 30;
       gCtx.lineCap = 'round';
-    
+
       // Line
       gCtx.beginPath();
       gCtx.moveTo(0, 0);
       gCtx.lineTo(self.attackVector.x, -(self.attackVector.y));
       gCtx.stroke();
       gCtx.closePath();
-    
+
       // Circle
       // gCtx.beginPath();
       // gCtx.moveTo(0, 0);
       // gCtx.arc(0, 0, rad, 0, 2 * Math.PI);
       // gCtx.fill();
       // gCtx.closePath();
-    
+
       gCtx.restore();
     }
   }
